@@ -1,4 +1,4 @@
-pipeline {
+/*pipeline {
     agent any
     stages {
         stage('Preparation') {
@@ -83,6 +83,33 @@ pipeline {
                     sh 'docker compose -f docker-compose.yml -p main_fitopia up -d'
                 }
             }
+        }
+    }
+}*/
+
+pipeline {
+    agent any
+    stages {
+        stage ('Checkout') {
+            steps {
+                git branch:'master', url: 'https://github.com/afiqdanialll/fitopiapublic.git'
+            }
+        }
+
+        stage('Code Quality Check via SonarQube') {
+            steps {
+                script {
+                def scannerHome = tool 'SonarQube';
+                    withSonarQubeEnv('SonarQube') {
+                    sh "/var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectKey=OWASP -Dsonar.sources=. -Dsonar.host.url=http://192.168.86.108:9000 -Dsonar.token=sqp_57cf6637d96e72604aca99aff160869e8ac81ffc"
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            recordIssues enabledForFailure: true, tool: sonarQube()
         }
     }
 }
