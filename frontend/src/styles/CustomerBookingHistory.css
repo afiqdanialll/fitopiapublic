@@ -1,0 +1,28 @@
+.booking-history-container {
+    margin-top: 20px;
+  }
+  
+  .booking-history-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .booking-history-container .table {
+    margin-top: 20px;
+  }
+  
+  .centered-button {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .cancel-button {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+  }
+  
+  .cancel-button:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+  

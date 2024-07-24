@@ -1,0 +1,32 @@
+.customer-class-container {
+  margin-top: 20px;
+}
+
+.customer-class-form {
+  margin-bottom: 20px;
+}
+
+.customer-class-table {
+  margin-top: 20px;
+}
+
+.no-classes-message {
+  text-align: center;
+  font-weight: bold;
+}
+
+.book-button {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.book-button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.centered-button {
+  text-align: center;
+  vertical-align: middle;
+}

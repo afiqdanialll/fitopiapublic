@@ -1,0 +1,44 @@
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - static_volume:/app/backend/server/django_static
+      - /home/student12/certs/fitopia.fr.to.crt:/etc/nginx/certs/fitopia.fr.to.crt:ro
+      - /home/student12/certs/fitopia.fr.to.key:/etc/nginx/certs/fitopia.fr.to.key:ro
+    depends_on:
+      - backend
+  db:
+    image: mysql:latest
+    restart: always
+    expose:
+      - 3306
+    env_file:
+      - /var/jenkins_home/.env
+    volumes:
+      - mysql_data:/var/lib/mysql
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    restart: always
+    expose:
+      - 8000
+    env_file:
+      - /var/jenkins_home/.env
+    volumes:
+      - static_volume:/app/backend/server/django_static
+      - logs:/app/backend/server/logs
+    entrypoint: /app/backend/wsgi-entrypoint.sh
+    depends_on:
+      - db
+
+volumes:
+   static_volume: {}
+   mysql_data: {}
+   logs: {}
